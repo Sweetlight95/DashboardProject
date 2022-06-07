@@ -1,14 +1,15 @@
-import React,  {useState} from 'react'
+import React, {useState} from 'react'
 import {MdOutlineUnfoldMore} from 'react-icons/md'
+import './recentuser.css'
 
 const RecentUser = () => {
    
   return (
     <div>
      
-        <div style={{display: 'flex'}}>
+        <div >
         <div className="uss">
-          <ul className="userheader">
+          <ul className="usercontent">
             <li className="id">ID<MdOutlineUnfoldMore/></li>
             <li className="name">TITLE<MdOutlineUnfoldMore /></li>
             <li className="address">NAME <MdOutlineUnfoldMore /></li>

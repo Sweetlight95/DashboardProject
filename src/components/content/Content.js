@@ -1,7 +1,7 @@
 import React from 'react'
 import {Routes, Route} from "react-router-dom"
 import Dashboard2 from '../contentss/Dashboard2'
-import SearchPosts from '../contentss/SearchPosts'
+import SearchPosts from '../../components/search/SearchPosts'
 import AddUser from '../contentss/AddUser'
 import Navbar from '../dashboard/Navbar'
 import './content.css'
