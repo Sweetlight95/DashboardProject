@@ -2,8 +2,9 @@ import React from 'react'
 
 const RecentPost = () => {
   return (
-    <div>RecentPost</div>
-  )
+  <div>
+    </div>
+  );
 }
 
 export default RecentPost

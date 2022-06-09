@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import './navbar.css'
 import Ellipse from "../../assests/Ellipse 52.svg"
+import SearchPosts from '../search/SearchPosts'
+import {useLocation} from 'react-router-dom'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function MenuAppBar() {
+  const location = useLocation()
+  console.log(location)
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,7 +48,8 @@ export default function MenuAppBar() {
       <AppBar position="static" >
         <Toolbar >
          <Typography variant="h6" className={classes.title}>
-           Dashboard
+           {location.pathname === "/dashboard" ? "Dashboard" : "Dashboard > Search Posts" ? location.pathname === "/search" ? "Dashboard > Search Posts" : "Add User" : (<></>)}
+         
           </Typography>
           {auth && (
             <div>

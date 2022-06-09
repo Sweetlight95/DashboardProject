@@ -2,11 +2,11 @@
     background: linear-gradient(182.81deg, rgba(53, 46, 77, 0) -3.48%, #9F96EF -3.47%, #5F5888 98.43%);
     height: 100vh;
     padding-left: 1.4rem;
-
+    cursor: pointer;
 }
 .names {
     padding-left: 0.7rem;
-    padding-top: 1rem;
+    padding-top: 1.8rem;
 }
 .img {
     height: 4rem;
@@ -22,7 +22,8 @@
 }
 .yourname {
     color: #cecece;
-    margin-top: -1.2rem;
+    margin-top: -1rem;
+    margin-left: 2px;
 }
 .fillh {
     color: #fff;
