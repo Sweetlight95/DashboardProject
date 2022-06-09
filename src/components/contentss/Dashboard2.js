@@ -3,8 +3,21 @@ import {Grid, Typography} from '@material-ui/core'
 import './dashb.css'
 import RecentUser from './RecentUser'
 import Recents from './Recents'
+import { Axios } from 'axios'
 
 const Dashboard2 = () => {
+    const user = () => {
+        const config = {
+            headers: {
+              "app-id": "629e74f9007a8808a4995bb2",
+            },
+          };    
+          const userPost = "https://dummyapi.io/docs/user";
+      
+           Axios.get(userPost, config).then((response) => {
+            console.log(response.data, "" )
+          })
+    }
   return (
    <Grid>
         <Grid container style={{display: 'flex'}} >
@@ -12,7 +25,7 @@ const Dashboard2 = () => {
             <Grid style={{display: "flex", marginBottom: "1.3rem"}}>
                 <Grid style={{
                     backgroundColor: "#ffffff", border: "1px solid #FFFFFF", boxShadow: "0px 0px 7px rgba(40, 40, 40, 0.17)", borderRadius:"4px", height: "6rem", width: "12rem"}} >
-                    <Typography style={{fontWeight: 400, fontSize: "13px", color: "#505050", marginLeft:"1rem" }}>Users</Typography>
+                    <Typography style={{fontWeight: 400, fontSize: "13px", color: "#505050", marginLeft:"1rem" }} >Users</Typography>
                     <Typography style={{fontWeight: 700, fontSize: "24px", color: "#505050", marginLeft:"1rem"}}>100</Typography>
                 </Grid>
                 <Grid style={{

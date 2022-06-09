@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import ".formik.css";
+import "./formik.css";
 import Axios from "axios";
 
 const AddUser = () => {
