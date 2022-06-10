@@ -16,7 +16,7 @@ import actionCellRenderer from "../search/ActionCellRenderer";
 import "antd/dist/antd.css";
 import axios from "axios";
 import { reformatDate } from "../../utils";
-import { UserOutlined } from "@ant-design/icons";
+import { FiUser } from "react-icons/fi";
 
 //Table for users
 const UserTable = () => {
@@ -506,8 +506,9 @@ const UserData = (props) => {
       borderRadius: "4px",
       height: "25rem",
     }}>
-      <div>
-        <UserOutlined />
+      <div style={{ padding: '5rem 4.8rem'}}>
+        <FiUser style={{ height: '8rem', width: '8rem',}} />
+        <p style={{fontWeight: 400, fontSize: '9px', color: '#051A2E',}}>View a selected user's full details here</p>
         </div>
     </div>;
   }

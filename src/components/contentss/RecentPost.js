@@ -5,7 +5,7 @@
     useMemo,
     useCallback,
   } from "react";
-  import { useFormik } from "formik";
+  import vector from '../../assests/Vector.svg'
   import Axios from "axios";
   import { Row, Col, Input } from "antd";
   import { AgGridReact } from "ag-grid-react";
@@ -151,6 +151,7 @@
      
     }
     useEffect(() => {}, []);
+    if (props.values) {
     return (
       <div style={{  height: "50vh", width: "20vw", marginLeft: '1rem', background: '#FFFFFF', boxShadow: '0px 0px 7px 3px rgba(40, 40, 40, 0.03)',    borderRadius: '4px', height: '28.3rem' }} >
         <div style={{padding: '1rem 1.4rem'}}>
@@ -189,9 +190,26 @@
 
           </div>
         
-     </div>
+     </div>);
+      } 
+      else {
+      return <div  style={{
+        height: "50vh",
+        width: "20vw",
+        marginLeft: "1rem",
+        background: "#FFFFFF",
+        boxShadow: "0px 0px 7px 3px rgba(40, 40, 40, 0.03)",
+        borderRadius: "4px",
+        height: "25rem",
+      }}>
+        <div>
+          <img src={vector} alt='' />
+          <p>View a selected post's full details here</p>
+          </div>
+      </div>;
+    }
     
-    );
+    
   };
   
   export { UserData };
