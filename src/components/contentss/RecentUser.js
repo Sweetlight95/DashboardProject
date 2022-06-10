@@ -156,7 +156,7 @@ const UserData = (props) => {
         <div style={{alignSelf: 'stretch', fontWeight: 400,
 fontSize: '9.70064px', color: '#051A2E'}}>
           {" "}
-          {props.values.firstName} {props.values.lastName}{" "}
+          {props.values.title}{props.values.firstName} {props.values.lastName}{" "}
         </div>
         
 

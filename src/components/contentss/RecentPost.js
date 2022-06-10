@@ -15,7 +15,7 @@
   import actionCellRenderer from "../search/ActionCellRenderer";
   import "antd/dist/antd.css";
   import axios from "axios";
-  import {BsHeart} from 'react-icons/bs'
+  import {BsFillHeartFill} from 'react-icons/bs'
   
   //Table for post 
   const UserTable = () => {
@@ -45,7 +45,15 @@
       { field: "title", headerName: "TITLE", width: 40 },
       {
         field: "data",
-        headerName: "NAME",
+        headerName: "OWNER",
+        cellStyle: {
+          textAlign: "left",
+        },
+        cellRenderer: nameCellRenderer,
+      },
+      {
+        field: "data",
+        headerName: "PUBLISHED DATE",
         cellStyle: {
           textAlign: "left",
         },
@@ -66,8 +74,6 @@
     };
     const url = "https://dummyapi.io/data/v1/user?limit=40";
   
-  
-    const deleteUrl = `https://dummyapi.io/docs/post/${userID.current}`;
   
    
     const onGridReady = useCallback((params) => {
@@ -153,7 +159,7 @@
           </div>
          
           <p style={{color: '#051a2e', fontSize: '10px', fontWeight: 400}}>adult Labrador retriever</p>
-          <p style={{color: '#dd3c3c', fontSize: '10px', fontWeight: 400}} ><BsHeart/>96 Likes</p>
+          <p style={{color: '#dd3c3c', fontSize: '10px', fontWeight: 400}} ><BsFillHeartFill style={{color: 'red'}}/>96 Likes</p>
 
           <p style={{color: '#afc2d4', fontSize: '7px', fontWeight: 600}}>TAGS</p>
           <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
