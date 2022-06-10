@@ -97,7 +97,7 @@ const UserTable = () => {
 
   return (
     <Row>
-      <Row style={{ padding: "0rem 2rem" }}>
+      <Row style={{ padding: "0rem 2rem", height: '30rem' }}>
         <Col>
           <div className="ag-theme-alpine" style={gridStyle}>
             <AgGridReact
