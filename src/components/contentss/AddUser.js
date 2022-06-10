@@ -32,10 +32,19 @@ const AddUser = () => {
     onSubmit: (values) => {
       console.log(values);
       setUserData(values);
-      // console.log
+      const requiredValues = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+      };
+      console.log(requiredValues);
       Axios.post(
         "https://dummyapi.io/data/v1/user/create",
-        { values },
+        {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        },
         {
           headers: {
             "app-id": "629e74f9007a8808a4995bb2",
@@ -48,15 +57,32 @@ const AddUser = () => {
         .catch((error) => {
           console.log(error);
         });
-      alert(JSON.stringify(values, null, 2));
     },
   });
   return (
-    <div style={{padding: '3rem 8rem 4rem 8rem', borderRadius: '13px', boxShadow: '0px 6.4px 13px rgba(0, 19, 88, 0.05', border: '1px solid #fff'}}>
-      <h1  style={{ color: '#607485', fontWeight: '600', fontSize: '17px'}}> ADD USER </h1>
-      <h4  style={{ color: '#607485', fontWeight: '600', fontSize: '9px'}}> Personal Details </h4>
+    <div
+      style={{
+        padding: "3rem 8rem 4rem 8rem",
+        borderRadius: "13px",
+        boxShadow: "0px 6.4px 13px rgba(0, 19, 88, 0.05",
+        border: "1px solid #fff",
+      }}
+    >
+      <h1 style={{ color: "#607485", fontWeight: "600", fontSize: "17px" }}>
+        {" "}
+        ADD USER{" "}
+      </h1>
+      <h4 style={{ color: "#607485", fontWeight: "600", fontSize: "9px" }}>
+        {" "}
+        Personal Details{" "}
+      </h4>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="title" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>Title</label>
+        <label
+          htmlFor="title"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          Title
+        </label>
         <input
           id="title"
           name="title"
@@ -64,12 +90,24 @@ const AddUser = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.title}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         />
         {formik.touched.title && formik.errors.title ? (
           <div>{formik.errors.title}</div>
         ) : null}
-        <label htmlFor="firstName" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>First Name</label>
+        <label
+          htmlFor="firstName"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          First Name
+        </label>
         <input
           id="firstName"
           name="firstName"
@@ -77,12 +115,24 @@ const AddUser = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.firstName}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         />
         {formik.touched.firstName && formik.errors.firstName ? (
           <div>{formik.errors.firstName}</div>
         ) : null}
-        <label htmlFor="lastName" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>Last Name</label>
+        <label
+          htmlFor="lastName"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          Last Name
+        </label>
         <input
           id="lastName"
           name="lastName"
@@ -90,20 +140,39 @@ const AddUser = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.lastName}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         />
         {formik.touched.lastName && formik.errors.lastName ? (
           <div>{formik.errors.lastName}</div>
         ) : null}
 
-        <label htmlFor="gender" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>Gender</label>
+        <label
+          htmlFor="gender"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          Gender
+        </label>
         <select
           id="gender"
           name="gender"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.gender}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         >
           <option value="">Select</option>
           <option value="Male">Male</option>
@@ -113,7 +182,12 @@ const AddUser = () => {
           <div>{formik.errors.gender}</div>
         ) : null}
 
-        <label htmlFor="email" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>Email Address</label>
+        <label
+          htmlFor="email"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          Email Address
+        </label>
         <input
           id="email"
           name="email"
@@ -121,12 +195,24 @@ const AddUser = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         />
         {formik.touched.email && formik.errors.email ? (
           <div>{formik.errors.email}</div>
         ) : null}
-        <label htmlFor="birthdate" style={{color: '#051a2e', fontWeight: 600, fontSize: '11px'}}>Date of Birth</label>
+        <label
+          htmlFor="birthdate"
+          style={{ color: "#051a2e", fontWeight: 600, fontSize: "11px" }}
+        >
+          Date of Birth
+        </label>
         <input
           type="date"
           id="birthdate"
@@ -135,7 +221,14 @@ const AddUser = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.date}
-          style={{backgroundColor: '#fafcfe', borderRadius: '6px', border: '0.8px solid #dee6ed', color: '#97a7b4', fontWeight: '400', fontSize: '11px'}}
+          style={{
+            backgroundColor: "#fafcfe",
+            borderRadius: "6px",
+            border: "0.8px solid #dee6ed",
+            color: "#97a7b4",
+            fontWeight: "400",
+            fontSize: "11px",
+          }}
         />
         {formik.touched.birthdate && formik.errors.birthdate ? (
           <div>{formik.errors.birthdate}</div>
@@ -146,4 +239,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser
+export default AddUser;

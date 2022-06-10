@@ -10,6 +10,7 @@ import likeCellRenderer from "./LikeCellRenderer";
 import actionCellRenderer from "./ActionCellRenderer";
 import "antd/dist/antd.css";
 import "./searchs.css";
+import { reformatDate } from '../../utils';
 
 
 const SearchPosts = () => {
@@ -42,10 +43,13 @@ const SearchPosts = () => {
     },
     { field: "text", headerName: "TITLE" },
     { field: "likes", headerName: "LIKES", cellRenderer: likeCellRenderer },
-    { field: "publishDate", headerName: "PUBLISHED DATE" },
+    { field: "publishDate", headerName: "PUBLISHED DATE", valueFormatter : (row) => {
+      if (!row.value) return "Error"
+      return reformatDate(row.value)
+    } },
     {
       field: "ACTION",
-      headerName: "XXXX",
+      headerName: "",
       cellRenderer: actionCellRenderer,
       width: 30,
     },

@@ -178,7 +178,7 @@
           <label style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}> FULL NAME </label>
           <div style={{ fontWeight: 400, fontSize: '10px', color: '#051A2E'}}>
             {" "}
-            {props.values.firstName} {props.values.lastName}{" "}
+           {props.values.title} {props.values.firstName} {props.values.lastName}{" "}
           </div>
           
   

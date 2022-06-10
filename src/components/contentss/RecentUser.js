@@ -15,6 +15,8 @@ import nameCellRenderer from "../search/NameCellRender";
 import actionCellRenderer from "../search/ActionCellRenderer";
 import "antd/dist/antd.css";
 import axios from "axios";
+import { reformatDate } from "../../utils";
+import { UserOutlined } from "@ant-design/icons";
 
 //Table for users
 const UserTable = () => {
@@ -22,7 +24,7 @@ const UserTable = () => {
   const [rowData, setRowdata] = useState([]);
   const [userFullData, setUserFullData] = useState([]);
   const userID = useRef("");
- 
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const gridStyle = useMemo(() => ({ height: "50vh", width: "50vw" }), []);
   const defaultColDef = useMemo(() => {
@@ -63,16 +65,12 @@ const UserTable = () => {
       "app-id": "629e74f9007a8808a4995bb2",
     },
   };
-  const url = "https://dummyapi.io/data/v1/user?limit=40";
-
-
-  const deleteUrl = `https://dummyapi.io/docs/post/${userID.current}`;
+  const url = "https://dummyapi.io/data/v1/user?created=1";
 
  
-  const onGridReady = useCallback((params) => {
-  
-    Axios.get(url, config).then((response) => {
 
+  const onGridReady = useCallback((params) => {
+    Axios.get(url, config).then((response) => {
       setRowdata(response.data.data);
     });
   }, []);
@@ -91,15 +89,15 @@ const UserTable = () => {
     if (userID.current) {
       const userFullUrl = `https://dummyapi.io/data/v1/user/${userID.current}`;
       Axios.get(userFullUrl, config).then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setUserFullData(response.data);
       });
     }
-  }, []);
+  }, [config]);
 
   return (
     <Row>
-      <Row style={{padding: '0rem 2rem'}}>
+      <Row style={{ padding: "0rem 2rem" }}>
         <Col>
           <div className="ag-theme-alpine" style={gridStyle}>
             <AgGridReact
@@ -120,7 +118,7 @@ const UserTable = () => {
           </div>
         </Col>
       </Row>
-      {isModalVisible ? <UserData values={userFullData} /> : null}
+      {isModalVisible ? <UserData values={userFullData} /> : <UserData />}
     </Row>
   );
 };
@@ -128,113 +126,391 @@ const UserTable = () => {
 export { UserTable };
 
 const UserData = (props) => {
-  
-
   const deleteButton = () => {
     const config = {
       headers: {
         "app-id": "629e74f9007a8808a4995bb2",
       },
-    };    
+    };
     const deleteUrl = `https://dummyapi.io/data/v1/post/${props.values.id}`;
 
     Axios.delete(deleteUrl, config).then((response) => {
-      console.log(response.data, "Deleted" )
-    })
-   
-  }
+      console.log(response.data, "Deleted");
+    }).catch((error) => {
+        console.log(error)
+    });
+  };
   useEffect(() => {}, []);
-  return (
-    <div style={{  height: "50vh", width: "20vw", marginLeft: '1rem', background: '#FFFFFF', boxShadow: '0px 0px 7px 3px rgba(40, 40, 40, 0.03)',    borderRadius: '4px', height: '25rem' }} >
-      <div style={{paddingTop: '1rem'}}>
-        <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <div>
-          <img src={props.values.picture} alt='' style={{height: '6rem', width: "5rem", borderRadius: '6px'}} />
+
+  let location = { street: "", city: "", state: "", country: "" };
+  if (props.values) {
+    if (props.values.location) {
+    location = props.values.location;
+    }
+    return (
+      <div
+        style={{
+          height: "50vh",
+          width: "20vw",
+          marginLeft: "1rem",
+          background: "#FFFFFF",
+          boxShadow: "0px 0px 7px 3px rgba(40, 40, 40, 0.03)",
+          borderRadius: "4px",
+          height: "25rem",
+        }}
+      >
+        <div style={{ paddingTop: "1rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div>
+              <img
+                src={props.values.picture}
+                alt=""
+                style={{ height: "6rem", width: "5rem", borderRadius: "6px" }}
+              />
+            </div>
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                {" "}
+                FULL NAME{" "}
+              </label>
+              <div
+                style={{
+                  alignSelf: "stretch",
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.title} {props.values.firstName}{" "}
+                {props.values.lastName}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                {" "}
+                PHONE NUMBER{" "}
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.phone}{" "}
+              </div>
+            </div>
+          </div>
+          <hr
+            style={{
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+              width: "10rem",
+            }}
+          />
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                {" "}
+                GENDER{" "}
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.gender}{" "}
+              </div>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                DATE OF BIRTH
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {reformatDate(props.values.dateOfBirth)}{" "}
+              </div>
+            </div>
+          </div>
+          <hr
+            style={{
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+              width: "10rem",
+            }}
+          />
+
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                STREET
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {location.street}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                STATE
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {location.state}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                YEAR ENROLLED
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.yearEnrolled}{" "}
+              </div>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                CITY
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {location.city}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                COUNTRY
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {location.country}{" "}
+              </div>
+            </div>
+          </div>
+          <hr
+            style={{
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+              width: "10rem",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              marginBottom: "1.3rem",
+            }}
+          >
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                REGISTERED
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {reformatDate(props.values.registerDate)}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                POSTS
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.posts}{" "}
+              </div>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                LAST UPDATED
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {reformatDate(props.values.updatedDate)}{" "}
+              </div>
+
+              <label
+                style={{
+                  fontWeight: 600,
+                  fontSize: "6.92903px",
+                  color: "#afc2d4",
+                }}
+              >
+                COMMENTS
+              </label>
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: "9.70064px",
+                  color: "#051A2E",
+                }}
+              >
+                {" "}
+                {props.values.comments}{" "}
+              </div>
+            </div>
+          </div>
+
+          <button
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              borderRadius: "4px",
+              border: "none",
+              width: "15rem",
+              height: "2.4rem",
+              marginLeft: "2rem",
+            }}
+            onClick={deleteButton}
+          >
+            Delete
+          </button>
         </div>
-        <div>
-        <label style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}> FULL NAME </label>
-        <div style={{alignSelf: 'stretch', fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}>
-          {" "}
-          {props.values.title}{props.values.firstName} {props.values.lastName}{" "}
-        </div>
-        
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}> PHONE NUMBER </label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}} > {props.values.phone} </div>
-        </div>
-        </div>
-       <hr style={{paddingLeft: '2rem', paddingRight: '2rem', width: '10rem'}}/>
-       <div style={{display: 'flex', justifyContent: 'space-around'}}>
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}> GENDER </label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.gender} </div>
-         </div>
-
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>DATE OF BIRTH</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.dateOfBirth} </div>
-         </div>
-       </div>
-        <hr style={{paddingLeft: '2rem', paddingRight: '2rem', width: '10rem'}}/>
-
-        <div style={{display: 'flex', justifyContent: 'space-around'}}>
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>STREET</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.street} </div>
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>STATE</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.state} </div>
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>YEAR ENROLLED</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.yearEnrolled} </div>
-         </div>
-
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>CITY</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.city} </div>
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>COUNTRY</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.country} </div>
-         </div>
-       </div>
-        <hr style={{paddingLeft: '2rem', paddingRight: '2rem', width: '10rem'}}/>
-        <div style={{display: 'flex', justifyContent: 'space-around', marginBottom: '1.3rem'}}>
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>REGISTERED</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.registerDate} </div>
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>POSTS</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.posts} </div>
-
-         </div>
-
-         <div>
-         <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>LAST UPDATED</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.updatedDate} </div>
-
-        <label  style={{fontWeight: 600, fontSize: '6.92903px', color: '#afc2d4'}}>COMMENTS</label>
-        <div style={{fontWeight: 400,
-fontSize: '9.70064px', color: '#051A2E'}}> {props.values.comments} </div>
-         </div>
-       </div>
-        
-
-        <button style={{backgroundColor: 'red', color: 'white', borderRadius: '4px', border: 'none', width: '15rem', height: '2.4rem', marginLeft: '2rem'}} onClick= {deleteButton}>Delete</button>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <div  style={{
+      height: "50vh",
+      width: "20vw",
+      marginLeft: "1rem",
+      background: "#FFFFFF",
+      boxShadow: "0px 0px 7px 3px rgba(40, 40, 40, 0.03)",
+      borderRadius: "4px",
+      height: "25rem",
+    }}>
+      <div>
+        <UserOutlined />
+        </div>
+    </div>;
+  }
 };
 
 export { UserData };
@@ -243,7 +519,6 @@ const RecentUser = () => {
   return (
     <div style={{ display: "flex", flexDirection: "row", gap: "10%" }}>
       <UserTable />
-     
     </div>
   );
 };
